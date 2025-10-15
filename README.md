@@ -1,66 +1,67 @@
-# 🎁 Greeting Card with ETH Gifting 💌
+# Greeting Card with ETH Gifting
 
-A simple and heartwarming Ethereum smart contract that lets anyone **send ETH gifts along with a personal greeting message** — like a digital greeting card that holds real value!  
-
-This contract is **fully self-contained**, has **no imports or input constructors**, and is ideal for learning, demos, and personal projects.
-
----
-
-## 🌟 Features
-
-- 💬 **Send a Greeting + ETH Gift** — Anyone can send a message with some ETH.
-- 📜 **All Greetings Stored On-Chain** — Messages are permanently recorded in the blockchain.
-- 💰 **Safe Owner Withdrawals** — Contract owner can withdraw the accumulated ETH.
-- 🔒 **No Reentrancy Vulnerabilities** — Simple and secure withdrawal logic.
-- ⚙️ **No External Imports or Constructors** — Works standalone, deployable on Remix or any EVM chain.
+This repository contains the source code and deployment details for the **Greeting Card with ETH Gifting** smart contract, deployed on the **Flow EVM Testnet**.  
+The contract allows anyone to send ETH gifts along with personalized on-chain greeting messages.
 
 ---
 
-## 🧠 Smart Contract Overview
+## Overview
 
-### Contract Name
-`GreetingCardWithGifts`
+The **Greeting Card with ETH Gifting** contract is a minimal, self-contained Solidity implementation with no external imports or constructor arguments. It enables users to:
 
-### Core Functions
-
-| Function | Description |
-|-----------|--------------|
-| `sendGreeting(string message)` | Send a greeting message along with some ETH. |
-| `getGreeting(uint index)` | Fetch a specific greeting by its index. |
-| `greetingsCount()` | Returns the total number of greetings. |
-| `recentGreetings(uint maxItems)` | Returns the most recent N greetings (for UI display). |
-| `withdraw()` | Allows only the owner to withdraw the contract’s ETH balance. |
-| `contractBalance()` | View current ETH balance of the contract. |
-| `setOwner(address newOwner)` | Transfer contract ownership to another address. |
+- Send ETH with a message as a digital greeting card.
+- Record all greetings permanently on-chain.
+- Allow the contract owner to withdraw received ETH safely.
+- Retrieve past greetings for display or analytics.
 
 ---
 
-## 🚀 Deployment Steps (via Remix)
+## Deployment Details
 
-1. Open [Remix IDE](https://remix.ethereum.org/).
-2. Create a new file named `GreetingCardWithGifts.sol`.
-3. Paste the contract code inside.
-4. Compile using **Solidity v0.8.20** or higher.
-5. Deploy under the **"Injected Provider - MetaMask"** environment.
-6. After deployment:
-   - Click **sendGreeting** → enter your message → send ETH.
-   - View greetings via **getGreeting** or **recentGreetings**.
+**Network:** Flow EVM Testnet  
+**Contract Address:** `0xd9145CCE52D386f254917e481eB44e9943F39138`  
+**Compiler Version:** Solidity 0.8.20  
+**License:** MIT  
 
 ---
 
-## 💌 Example Flow
+## Contract Functions
 
-| Action | Result |
-|--------|---------|
-| User A sends 0.01 ETH + message “Happy Birthday!” | A new greeting is saved on-chain |
-| User B sends 0.02 ETH + “Wishing you success!” | Stored as a separate record |
-| Owner calls `withdraw()` | All accumulated ETH is safely transferred to owner’s wallet |
+| Function | Visibility | Description |
+|-----------|-------------|--------------|
+| `sendGreeting(string message)` | `external payable` | Sends a greeting message with attached ETH. |
+| `getGreeting(uint index)` | `external view` | Returns details of a specific greeting by index. |
+| `greetingsCount()` | `external view` | Returns total number of greetings stored. |
+| `recentGreetings(uint maxItems)` | `external view` | Returns a list of the most recent greetings. |
+| `withdraw()` | `external` | Allows the owner to withdraw all ETH from the contract. |
+| `contractBalance()` | `external view` | Returns the contract’s ETH balance. |
+| `setOwner(address newOwner)` | `external` | Transfers contract ownership to another address. |
 
 ---
 
-## 🧾 Example Transaction
+## Usage Instructions
+
+### Sending a Greeting
+To send a greeting message:
+1. Call `sendGreeting("Your message here")`
+2. Include a small ETH amount in the transaction (e.g., 0.01 ETH)
+
+The message and sender details will be stored permanently on-chain.
+
+### Reading Greetings
+You can:
+- Retrieve the total number of greetings using `greetingsCount()`
+- Get details of a specific greeting using `getGreeting(index)`
+- View the most recent messages with `recentGreetings(N)`
+
+### Withdrawing ETH
+Only the contract owner can call `withdraw()` to transfer all ETH from the contract to their wallet.
+
+---
+
+## Example (Remix or Script)
 
 ```solidity
-// Example
-sendGreeting("You're amazing!") 
-// with value: 0.01 ETH
+// Send a greeting with ETH
+sendGreeting("Wishing you all the best!")
+// Value: 0.01 ETH
